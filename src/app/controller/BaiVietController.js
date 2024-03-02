@@ -45,6 +45,7 @@ class BaivietController {
         })
     }
     creat(req, res, next) {
+        console.log(req.body)
         BaiViets.addBaiViet(({
             title: req.body.title,
             category_id: req.body.category,
@@ -57,7 +58,7 @@ class BaivietController {
                 console.error('Lỗi thêm sản phẩm:', err);
                 res.status(500).send('Internal Server Error');
             } else {
-                console.log('Sản phẩm đã được thêm thành công:', results);
+                console.log('Sản phẩm đã được thêm thành công:');
                 res.status(201).send(' added successfully');
             }
         })

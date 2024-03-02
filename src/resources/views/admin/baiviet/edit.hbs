@@ -24,7 +24,7 @@
                                     <div class="form-group">
                                         <label for="recipient-name" class="col-form-label">Chọn thể loại:</label><br>
                                         <select class="form-select" id="category" show-value="{{baiviet.category_id}}"
-                                            aria-label="Default select example">
+                                            aria-label="Default select example" >
                                             {{#each category}}
                                             <option value="{{this._id}}">{{this.name}}</option>
                                             {{/each}}
@@ -99,7 +99,6 @@
         valueFromDatabase = value
         // Lấy tham chiếu đến element select
         var selectElement = showElement
-
         // Duyệt qua từng option trong select
         for (var i = 0; i < selectElement.options.length; i++) {
             // So sánh giá trị của option với giá trị từ database
@@ -111,13 +110,9 @@
         }
     }
     showSelected(showcategory, getAttrCategory)
-
     //click edit
     function onclickEdit() {
-        // var tinymceHtmlContent = tinymce.get('editor').getContent()
-        //   tinymce.triggerSave()
         var tinymceHtmlContent = tinymce.activeEditor.getContent()
-
         var title = document.getElementById('title').value
         var category = document.getElementById('category').value
 

@@ -407,7 +407,7 @@
 <script>
     function Lienhe() {
         (function () {
-            emailjs.init("SivOPYE4qBGxdC_A4"); // Account Public Key
+            emailjs.init("kVMpl1JqK905ZsLT2"); // Account Public Key
         })();
         var params = {
             sendername: document.querySelector('#sendername').value,
@@ -417,12 +417,12 @@
             replyto: document.querySelector('#replyto').value,
             message: document.querySelector('#message').value,
         };
-        var serviceID = "service_fo2x0ds"; // Email Service ID
-        var templateID = "template_3vznvia"; // Email Template ID
+        var serviceID = "service_h8cp27u"; // Email Service ID
+        var templateID = "template_p4ikbhg"; // Email Template ID
 
         emailjs.send(serviceID, templateID, params)
             .then(res => {
-                alert("Email sent successfully!!")
+                alert("Email đã được gửi thành công!!")
             })
             .catch();
 

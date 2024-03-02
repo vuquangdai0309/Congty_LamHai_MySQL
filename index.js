@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const port = 3000
 const path = require('path');
+
 const handlebars = require('express-handlebars');
 const route = require('./src/routes')
 const db = require('./src/config/db')
