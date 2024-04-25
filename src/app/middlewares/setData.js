@@ -9,7 +9,7 @@ const setCommonData = (req, res, next) => {
             if (err) {
                 console.log('lỗi truy vấn', err)
             }
-            BaiViet.getTinTucNew(2, (err, TintucNew) => {
+            BaiViet.getTow_TinTucNew(2, (err, TintucNew) => {
                 if (err) {
                     console.log('lỗi truy vấn', err)
                 }

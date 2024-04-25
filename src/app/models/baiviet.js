@@ -5,7 +5,7 @@ const BaiVietModel = {
     SELECT baiviet.*, category.name AS category
         FROM baiviet
         JOIN category ON baiviet.category_id = category._id
-        WHERE baiviet.is_deleted = 0 
+        WHERE baiviet.is_deleted = 0 ORDER BY STR_TO_DATE(baiviet.createdAt, "%d-%m-%Y")
     `
     connection.query(query, callback);
   },
@@ -85,7 +85,7 @@ const BaiVietModel = {
 
   // lấy những bản ghi có loại là tin tức
   getAllTinTuc: (callback) => {
-    const query = 'SELECT * FROM baiviet WHERE is_deleted =0 AND category_id = ?'
+    const query = 'SELECT * FROM baiviet WHERE is_deleted =0 AND category_id = ? ORDER BY STR_TO_DATE(createdAt, "%d-%m-%Y")'
     connection.query(query, 3, callback);
   },
   // lấy những bản ghi có loại là giới thiệu
@@ -94,8 +94,12 @@ const BaiVietModel = {
     connection.query(query, 1, callback);
   },
   // lấy 5 bản ghi có loại là tin tức mới nhất
-  getTinTucNew: (quantity,callback) => {
-    const query = `SELECT * FROM baiviet WHERE is_deleted =0 AND category_id = ? ORDER BY date DESC LIMIT ${quantity}`
+  getTinTucNew: (quantity, callback) => {
+    const query = `SELECT * FROM baiviet WHERE is_deleted =0 AND category_id = ? ORDER BY STR_TO_DATE(createdAt, "%d-%m-%Y") LIMIT ${quantity}`
+    connection.query(query, 3, callback);
+  },
+  getTow_TinTucNew: (quantity, callback) => {
+    const query = `SELECT * FROM baiviet WHERE is_deleted =0 AND category_id = ? ORDER BY STR_TO_DATE(createdAt, "%d-%m-%Y") DESC LIMIT ${quantity}`
     connection.query(query, 3, callback);
   },
   // lấy chi tiết bài viết

@@ -1,11 +1,12 @@
+const { ExpressHandlebars } = require('express-handlebars');
 const BaiViets = require('../models/baiviet')
 const Categorys = require('../models/category')
-const moment = require('moment/moment')
+const { formatDate } = require('../middlewares/format')
 const slugify = require('slugify');
 class BaivietController {
     index(req, res, next) {
         const page = parseInt(req.query.page) || 1; // Trang hiện tại
-        const pageSize = 4; // Kích thước trang
+        const pageSize = 6; // Kích thước trang
         const startIndex = (page - 1) * pageSize;
         const endIndex = page * pageSize;
         BaiViets.getAllBaiViets((err, data) => {
@@ -51,7 +52,7 @@ class BaivietController {
             category_id: req.body.category,
             image: req.file.path,
             content: req.body.editor,
-            createdAt: moment().format('DD-MM-YYYY'),
+            createdAt: formatDate(req.body.createdAt),
             slug: slugify(req.body.title, { lower: true })
         }), (err, results) => {
             if (err) {
@@ -132,7 +133,7 @@ class BaivietController {
                 category_id: req.body.category,
                 content: req.body.editor,
 
-                createdAt: moment().format('DD-MM-YYYY'),
+                createdAt: formatDate(req.body.createdAt),
                 slug: slugify(req.body.title, { lower: true })
             }), (err, results) => {
                 if (err) {
@@ -155,7 +156,7 @@ class BaivietController {
                 image: req.body.imageurl,
                 category_id: req.body.category,
                 content: req.body.editor,
-                createdAt: moment().format('DD-MM-YYYY'),
+                createdAt: formatDate(req.body.createdAt),
                 slug: slugify(req.body.title, { lower: true })
             }), (err, results) => {
                 if (err) {
@@ -174,40 +175,49 @@ class BaivietController {
 
     searchAdmin(req, res, next) {
         const page = parseInt(req.query.page) || 1;
-        const pageSize = 4;
+        const pageSize = 6;
         const startIndex = (page - 1) * pageSize;
         const endIndex = page * pageSize;
         const searchTerm = req.query.search || '';
-        BaiViets.searchBaiVietByName(searchTerm, (err, data) => {
+        Categorys.getAllCategorys((err, category) => {
             if (err) {
-                console.error('Lỗi khi tìm kiếm sản phẩm:', err);
-            } else {
-                const totalPages = Math.ceil(data.length / pageSize);
-                const pages = Array.from({ length: totalPages }, (_, index) => {
+                console.error('Lỗi truy vấn:', err);
+                res.status(500).send('Internal Server Error');
+            }
+            else {
+                BaiViets.searchBaiVietByName(searchTerm, (err, data) => {
+                    if (err) {
+                        console.error('Lỗi khi tìm kiếm sản phẩm:', err);
+                    } else {
+                        const totalPages = Math.ceil(data.length / pageSize);
+                        const pages = Array.from({ length: totalPages }, (_, index) => {
 
-                    return {
-                        number: index + 1,
-                        active: index + 1 === page,
-                        isDots: index + 1 > 5
-                    };
-                });
-                const paginatedData = data.slice(startIndex, endIndex);
-                // Chuẩn bị dữ liệu để truyền vào template
-                const viewData = {
-                    baiviet: paginatedData,
-                    searchTerm,
-
-                    pagination: {
-                        // valuecurrent: searchTerm,
-                        prev: page > 1 ? page - 1 : null,
-                        next: endIndex < data.length ? page + 1 : null,
-                        pages: pages,
-                    },
-                };
-                // Render template và truyền dữ liệu
-                res.render('admin/baiviet/store', viewData);
+                            return {
+                                number: index + 1,
+                                active: index + 1 === page,
+                                isDots: index + 1 > 5
+                            };
+                        });
+                        const paginatedData = data.slice(startIndex, endIndex);
+                        // Chuẩn bị dữ liệu để truyền vào template
+                        const viewData = {
+                            baiviet: paginatedData,
+                            searchTerm,
+                            category: category,
+                            pagination: {
+                                // valuecurrent: searchTerm,
+                                prev: page > 1 ? page - 1 : null,
+                                next: endIndex < data.length ? page + 1 : null,
+                                pages: pages,
+                            },
+                        };
+                        // Render template và truyền dữ liệu
+                        res.render('admin/baiviet/store', viewData);
+                    }
+                })
             }
         })
+
     }
 
     //[Get] Trash

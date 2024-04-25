@@ -16,23 +16,25 @@
     <div class="row h-50">
         <!-- Blog Grid Start -->
         <div class="col-lg-8">
-            <div class="row">
+            <div class="row" style="padding-left:0%!important">
                 {{#each tintuc}}
-                <div class="col-md-12 " style="height: 250px;">
-                    <div class="row">
+                <div class="col-md-12 mt-3" >
+                    <div class="row" >
                         <div class="col-md-4">
                             <div class="position-relative">
-                                <img class="img-fluid w-100 responsive-image" src="/{{this.image}}" alt="">
+                                <img class="img-fluid w-100 responsive-image" src="/{{this.image}}" alt=""
+                                    style="height: 205px;">
                                 <div class="position-absolute bg-primary d-flex flex-column align-items-center justify-content-center "
-                                    style="width: 150px; height: 30px; bottom: -10px; right: 30px;">
-                                    <h4 class="font-weight-bold mb-n1" style="color:rgb(0, 0, 0);">{{this.createdAt}}</h4>
+                                    style="width: 150px; height: 30px; bottom: 5px; right: 30px;">
+                                    <h4 class="font-weight-bold mb-n1" style="color:rgb(0, 0, 0);">{{this.createdAt}}
+                                    </h4>
 
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-8">
-                            <div class="bg-secondary mb-3" style="padding:0 30px; background-color:white !important">
-                                <h4 class="font-weight-bold mb-3">{{this.title}}</h4>
+                        <div class="col-md-8 mt-2" >
+                            <div class="bg-secondary mb-3" style="padding:0 10px; background-color:white !important">
+                                <h4 class="font-weight-bold mb-3">{{{ truncateDescriptionTitle this.title}}}</h4>
                                 <p>
                                     {{{truncateDescription this.content }}}
                                 </p>
@@ -94,12 +96,15 @@
                 <h3 class="mb-4" style="padding-top: 3%">Tin mới nhất</h3>
                 {{#each latestPosts}}
                 <div class="d-flex mb-3">
-                    <img class="img-fluid" src="/{{this.image}}" style="width: 80px; height: 80px; object-fit: cover;"
-                        alt="">
+                    <div style="width: 80px; height: 70px; ">
+                        <img class="img-fluid" src="/{{this.image}}" alt=""
+                            style=" width: 80px; height: 70px;object-fit: cover;">
+                    </div>
+
                     <a href="/bai-viet/{{this.slug}}"
                         class="d-flex align-items-center bg-secondary text-dark text-decoration-none px-3"
-                        style="height: 80px; width:100%">
-                        {{this.title}}
+                        style="height: 70px; width:100%">
+                        {{{truncateDescriptionTitle this.title}}}
                     </a>
                 </div>
                 {{/each}}

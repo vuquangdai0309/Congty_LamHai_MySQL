@@ -25,12 +25,27 @@ app.engine('hbs', handlebars.engine({
       }
       return description;
     },
+    truncateDescriptionTitle: function (description) {
+      if (description.length > 0) {
+        return striptags(description.substring(0, 50));
+      }
+      return description;
+    },
     truncateDescriptionSearch: function (description) {
       if (description.length > 0) {
         return striptags(description.substring(0, 500) + '...');
       }
       return description;
     },
+    formatDate: function (dateString) {
+      const parts = dateString.split('-');
+      if (parts.length === 3) {
+        return parts[2] + '-' + parts[1] + '-' + parts[0];
+      }
+      return dateString;
+
+    }
+
   }
 }));
 

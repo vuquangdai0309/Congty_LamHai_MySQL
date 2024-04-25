@@ -5,7 +5,7 @@ class CheckController {
     checkout(req, res, next) {
         var token = req.cookies.tk
         if (token === undefined) {
-            res.render('home')
+            res.redirect('/user/login')
         }
         else {
             var idUser = jwt.verify(token, 'mk')

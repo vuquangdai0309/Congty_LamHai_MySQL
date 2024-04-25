@@ -28,13 +28,14 @@
         </div><!-- End Page Title -->
 
         <section class="section dashboard">
-            <table class="table table-bordered " style="text-align: center;">
+            <table class="table table-bordered ">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">STT</th>
                         <th scope="col">Tiêu đề</th>
                         <th scope="col">Thể loại</th>
+                        <th>Ngày tạo</th>
                         <th scope="col">Hình ảnh</th>
                         <th scope="col">Nội dung</th>
                         <th colspan="2">Hành động</th>
@@ -49,11 +50,12 @@
                             </div>
                         </td>
                         <td scope="row">{{sum @index 1}}</td>
-                        <td>{{this.title}}</td>
+                        <td>{{{truncateDescriptionTitle this.title}}} ...</td>
                         <td>{{this.category}}</td>
-                        <td><img class="responsive-image" src="/{{this.image}}" style="width:150px"></td>
+                        <td>{{this.createdAt}}</td>
+                        <td><img src="/{{this.image}}" style="width:150px ;height:120px"></td>
                         <td> </a><button type="button" class="btn btn-success"><a
-                                    href="/admin/bai-viet/{{this._id}}/detail" style="color: aliceblue;">Xem chi
+                                    href="/bai-viet/{{this.slug}}" style="color: aliceblue;">Xem chi
                                     tiết</a></button></td>
                         <td> <a href="/admin/bai-viet/{{this._id}}/edit"><i class="bi bi-pencil size-icon-edit"></i></a>
                         </td>
@@ -128,7 +130,11 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Tiêu đề:</label>
-                                <input type="text" class="form-control" id="title" name="title">
+                                <input type="text" class="form-control" id="title" name="title" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Ngày tạo:</label>
+                                <input type="date" class="form-control" id="createdAt" name="createdAt" required>
                             </div>
                             <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Chọn thể loại:</label><br>
@@ -186,8 +192,7 @@
 <form name="delete-form" method="POST"></form>
 <script src="/js/checkbox.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="https://cdn.tiny.cloud/1/egue02dpzhq0z79z5vgtt0hnr0hyffh4kf4toro78vjgv85f/tinymce/6/tinymce.min.js"
-    referrerpolicy="origin"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.8.2/tinymce.min.js"> </script>
 <script src="/js/tinymce.js"></script>
 <script src="/js/responsiveImage.js"></script>
 <script>
@@ -220,12 +225,14 @@
         var tinymceHtmlContent = tinymce.activeEditor.getContent()
         var title = document.getElementById('title').value
         var category = document.getElementById('category').value
+        var createdAt = document.getElementById('createdAt').value
         const file = img.files[0]
-        if (file && title && category) {
+        if (file && title && category && createdAt) {
             const formData = new FormData();
             formData.append('image', file);
             formData.append('title', title);
             formData.append('category', category);
+            formData.append('createdAt', createdAt);
             formData.append('editor', tinymceHtmlContent);
             fetch('/admin/bai-viet/creat', {
                 method: 'POST',

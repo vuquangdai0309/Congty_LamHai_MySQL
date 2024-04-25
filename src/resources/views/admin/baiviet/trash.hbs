@@ -29,6 +29,7 @@
                         <th scope="col">STT</th>
                         <th scope="col">Tiêu đề</th>
                         <th scope="col">Thể loại</th>
+                        <th>Ngày tạo</th>
                         <th scope="col">Hình ảnh</th>
                         <th colspan="2">Hành động</th>
                     </tr>
@@ -44,7 +45,8 @@
                         <th scope="row">{{sum @index 1}}</th>
                         <td>{{this.title}}</td>
                         <td>{{this.category}}</td>
-                        <td><img class="responsive-image" src="/{{this.image}}" style="width:150px"></td>
+                        <td>{{this.createdAt}}</td>
+                        <td><img src="/{{this.image}}" style="width:150px ;height:120px"></td>
 
                         <td> <a href="" class="btn-restore size-icon-edit" data-id="{{this._id}}"><strong>Khôi
                                     phục</strong></a></td>

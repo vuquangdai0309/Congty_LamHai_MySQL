@@ -34,7 +34,7 @@ class HomeController {
     }
     tintuc(req, res, next) {
         const page = parseInt(req.query.page) || 1; // Trang hiện tại
-        const pageSize = 2; // Kích thước trang
+        const pageSize = 6; // Kích thước trang
         const startIndex = (page - 1) * pageSize;
         const endIndex = page * pageSize;
 

@@ -325,25 +325,27 @@
     <div class="container">
         <div class="text-center pb-2">
             <!-- <h6 class="text-primary text-uppercase font-weight-bold">Our Blog</h6> -->
-            <h1 class="mb-4">Tin tức tổng hợp về công ty Lâm Hải</h1>
+            <h1 class="mb-4">Tin tức mới nhất về công ty Lâm Hải</h1>
         </div>
         <div class="row">
             {{#each TintucNew}}
-            <div class="col-md-6 mb-5">
-                <div class="position-relative">
-                    <img class="img-fluid w-100 responsive-image" src="/{{this.image}}" alt="">
-                    <div class="position-absolute bg-primary d-flex flex-column align-items-center justify-content-center "
-                        style="width: 150px; height: 60px; bottom: -30px; right: 30px;">
-                        <h4 class="font-weight-bold mb-n1">{{this.createdAt}}</h4>
-
+            <div class="col-md-6 mb-5 ">
+                <div class="image_left-new" style="background-color: white; transition: transform 0.3s ease-in-out;">
+                    <div class="position-relative">
+                        <img class="img-fluid w-100 responsive-image" src="/{{this.image}}" alt=""
+                            style="border-radius:5px 5px 0px 0px ;object-fit: cover;     ">
+                        <div class="position-absolute bg-primary d-flex flex-column align-items-center justify-content-center "
+                            style="width: 150px; height: 50px; bottom: -30px; right: 30px; border-radius:5px">
+                            <h4 class="font-weight-bold mb-n1">{{this.createdAt}}</h4>
+                        </div>
                     </div>
-                </div>
-                <div class="bg-secondary" style="padding: 30px;">
+                    <div class="bg-secondary" style="padding: 30px;  border-radius: 0px 0px 5px 5px ">
 
-                    <h4 class="font-weight-bold mb-3">{{this.title}}</h4>
-                    <p> {{{truncateDescription this.content }}}</p>
-                    <a class="border-bottom border-primary text-uppercase text-decoration-none"
-                        href="/bai-viet/{{this.slug}}">Đọc thêm <i class="fa fa-angle-right"></i></a>
+                        <h4 class="font-weight-bold mb-3">{{{truncateDescriptionTitle this.title}}} ...</h4>
+
+                        <a class="border-bottom border-primary text-uppercase text-decoration-none"
+                            href="/bai-viet/{{this.slug}}">Đọc thêm <i class="fa fa-angle-right"></i></a>
+                    </div>
                 </div>
             </div>
             {{/each}}
